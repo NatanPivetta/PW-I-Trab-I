@@ -2,6 +2,7 @@ package locacoes;
 import pessoas.Socio;
 import util.Situacao;
 import util.ValidaData;
+import java.util.Date;
 
 public final class Locacao implements ValidaData{
     private Date dataRetirada;

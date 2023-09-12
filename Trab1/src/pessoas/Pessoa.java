@@ -1,4 +1,5 @@
 package pessoas;
+import java.util.Date;
 
 public abstract class Pessoa{
     private String nome;
