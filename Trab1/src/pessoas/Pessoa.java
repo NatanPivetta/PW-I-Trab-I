@@ -6,6 +6,11 @@ public abstract class Pessoa{
     private Date dataNascimento;
     private static int total;
 
+    public Pessoa(String nome, Date nascimento) {
+        this.nome = nome;
+        this.dataNascimento = nascimento;
+    }
+
 
     @Override
     public String toString(){
@@ -18,5 +23,11 @@ public abstract class Pessoa{
         return total;
     }
 
+    public String getNome() {
+        return nome;
+    }
 
+    public long getDataNascimento() {
+        return dataNascimento.getTime();
+    }
 }
