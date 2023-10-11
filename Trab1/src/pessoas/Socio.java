@@ -9,6 +9,8 @@ public class Socio extends Pessoa{
     private TreeSet<Dependente> dependentes = new TreeSet<>();
 
 
+    
+    
     public Socio(String _nome, String endereco, String email, Date _nascimento){
         super(_nome, _nascimento);
         this.endereco = endereco;
@@ -21,6 +23,9 @@ public class Socio extends Pessoa{
         return s;
     }
 
+    
+
+
     public String getEndereco() {
         return endereco;
     }
@@ -28,8 +33,14 @@ public class Socio extends Pessoa{
     public String getEmail() {
         return email;
     }
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-
-
+    
+    
 
 }
