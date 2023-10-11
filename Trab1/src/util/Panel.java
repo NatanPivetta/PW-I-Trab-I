@@ -2,7 +2,7 @@ package util;
 
 import dao.SocioDAO;
 import locacoes.Locacao;
-import pessoas.Socio;
+import pessoas.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,6 +62,7 @@ public class Panel {
 	public static Locacao cadastraLocacao() throws SQLException, ParseException {
 		Date dataRetirada;
 		Date dataDevolucao;
+		Date dataDependente;
 		String pattern = "dd/MM/yyyy";
 		SimpleDateFormat simpleDf = new SimpleDateFormat(pattern);
 		double valor;
@@ -80,12 +81,20 @@ public class Panel {
 		JTextField JmesDev = new JTextField(2);
 		JTextField JanoDev = new JTextField(4);
 
+		// data de nascimento do depentende
+		JTextField JdiaDep = new JTextField(2);
+		JTextField JmesDep = new JTextField(2);
+		JTextField JanoDep = new JTextField(4);
+
+		
 		JTextField Jvalor = new JTextField(30);
 		Jvalor.setPreferredSize(new Dimension(50, 20));
 		JTextField Jdescricao = new JTextField(30);
 		Jdescricao.setPreferredSize(new Dimension(50, 20));
 		JTextField Jsocio = new JTextField(30);
 		Jsocio.setPreferredSize(new Dimension(50, 20));
+		JTextField Jdependente = new JTextField(30);
+		Jdependente.setPreferredSize(new Dimension(50, 20));
 
 		JPanel cadastroLocacao = new JPanel();
 
@@ -107,22 +116,33 @@ public class Panel {
 		cadastroLocacao.add(Jdescricao);
 		cadastroLocacao.add(new JLabel("Sócio:\n"));
 		cadastroLocacao.add(Jsocio);
+		cadastroLocacao.add(new JLabel("Dependente:\n"));
+		cadastroLocacao.add(Jdependente);
+		cadastroLocacao.add(new JLabel("Data de Nascimento do Dependente:\n"));
+		cadastroLocacao.add(JdiaDep);
+		cadastroLocacao.add(JmesDep);
+		cadastroLocacao.add(JanoDep);
+		
+		
 
 		int panel = JOptionPane.showConfirmDialog(null, cadastroLocacao, "Cadastro Locação",
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+		String dataDep = JdiaDep.getText() + "/" + JmesDep.getText() + "/" + JanoDep.getText();
 		String dataRet = JdiaRet.getText() + "/" + JmesRet.getText() + "/" + JanoRet.getText();
 		System.out.println(dataRet);
 		String dataDev = JdiaDev.getText() + "/" + JmesDev.getText() + "/" + JanoDev.getText();
 		System.out.println(dataDev);
 		dataDevolucao = new SimpleDateFormat(pattern).parse(dataDev);
 		dataRetirada = new SimpleDateFormat(pattern).parse(dataRet);
+		dataDependente = new SimpleDateFormat(pattern).parse(dataDep);
 
 		Locacao loc = new Locacao();
 
 		socio = SocioDAO.getSocio(Jsocio.getText());
 		if (socio != null) {
 
+			socio.addDependente(new Dependente(Jdependente.getText(), dataDependente));
 			loc.setSocio(socio);
 			loc.setTitulo(Jdescricao.getText());
 			loc.setValor(Double.parseDouble(Jdescricao.getText()));
@@ -139,4 +159,16 @@ public class Panel {
 
 		return loc;
 	}
+
+
+	public static Locacao pesqLocacao() {
+		Locacao loc = null;
+		JOptionPane.showInputDialog(null, "Informe o Valor da Locação");
+		
+		loc = new Locacao();
+		return loc;
+		
+		
+	}
+
 }

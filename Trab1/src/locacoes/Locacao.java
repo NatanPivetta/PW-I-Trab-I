@@ -1,8 +1,10 @@
 package locacoes;
+import pessoas.Dependente;
 import pessoas.Socio;
 import util.Situacao;
 import util.ValidaData;
 import java.util.Date;
+import java.util.TreeSet;
 
 public final class Locacao implements ValidaData{
     private Date dataRetirada;
@@ -12,6 +14,7 @@ public final class Locacao implements ValidaData{
     private Situacao situacao;
 
     private Socio socio;
+    
 
     public Date getDataRetirada() {
         return dataRetirada;

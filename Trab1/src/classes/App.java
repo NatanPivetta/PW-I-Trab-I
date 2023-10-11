@@ -1,10 +1,14 @@
 package classes;
 
 import dao.SocioDAO;
-import pessoas.Socio;
+import pessoas.*;
+import locacoes.*;
+
 import util.Menu;
 public class App {
     public static void main(String[] args) throws Exception {
+    	
+    	
         
         int op = Menu.montaMenu();
         switch (op){
@@ -14,6 +18,7 @@ public class App {
                 break;
             case 2:
                 System.out.println("Pesquisando Locação");
+                Menu.pesqLocacao();
                 break;
             case 3:
                 System.out.println("Cadastrando Sócio");

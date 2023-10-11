@@ -42,8 +42,8 @@ public abstract class Pessoa{
 	}
 
 
-	public static void setTotal(int total) {
-		Pessoa.total = total;
+	public static void setTotal() {
+		Pessoa.total = total++;
 	}
     
     

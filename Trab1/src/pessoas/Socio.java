@@ -16,14 +16,6 @@ public class Socio extends Pessoa{
         this.endereco = endereco;
         this.email = email;
     }
-    @Override
-    public String toString(){
-        String s = "";
-
-        return s;
-    }
-
-    
 
 
     public String getEndereco() {
@@ -39,7 +31,24 @@ public class Socio extends Pessoa{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public void addDependente(Dependente d) {
+		dependentes.add(d);
+	}
 
+	@Override
+	public String toString() {
+		String s = "";
+		
+		s += this.getNome() +"\n";
+		s += "Dependentes: \n";
+		for (Dependente dependente : dependentes) {
+			s += dependente.getNome();
+		}
+		s += "\n";
+		
+		return s;
+	}
     
     
 
