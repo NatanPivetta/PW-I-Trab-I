@@ -5,8 +5,8 @@ import pessoas.Socio;
 import util.Menu;
 public class App {
     public static void main(String[] args) throws Exception {
-        Menu menu = new Menu();
-        int op = menu.montaMenu();
+        
+        int op = Menu.montaMenu();
         switch (op){
             case 1:
                 Menu.cadastraLocacao();
