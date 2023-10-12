@@ -63,4 +63,13 @@ public final class Locacao implements ValidaData{
     public void setSocio(Socio socio) {
         this.socio = socio;
     }
+    
+    @Override
+    public String toString() {
+    	String s =  "";
+    	s += this.getTitulo() + " " + this.getValor() + "\n" +
+    	this.socio.toString();
+    	
+    	return s;
+    }
 }

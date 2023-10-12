@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+
 import pessoas.Socio;
 
 import javax.xml.transform.Result;
@@ -19,14 +21,16 @@ public class SocioDAO {
 	public static boolean inserirSocio(Socio socio) throws SQLException {
 		Connection connection = new ConnectionFactory().getConnection();
 		if (connection != null) {
+			System.out.println("Conexão aberta!");
 			PreparedStatement stmt = connection
 					.prepareStatement("INSERT INTO socio (nome, email, endereco, nascimento) VALUES (?, ?, ?, ?)");
 			stmt.setString(1, socio.getNome());
 			stmt.setString(2, socio.getEmail());
 			stmt.setString(3, socio.getEndereco());
-			stmt.setLong(4, socio.getDataNascimento().getTime());
+			java.sql.Date sqlDate = new java.sql.Date(socio.getDataNascimento().getTime());
+			stmt.setDate(4, sqlDate);
 
-			System.out.println("Conexão aberta!");
+			stmt.executeUpdate();
 			return true;
 		} else {
 

@@ -17,7 +17,7 @@ public class Panel {
 	public Panel() {
 	}
 
-	public static String cadastraSocio() throws SQLException {
+	public static Socio cadastraSocio() throws SQLException {
 		String dataNasc = "";
 		JTextField Jnome = new JTextField(30);
 		Jnome.setPreferredSize(new Dimension(50, 20));
@@ -55,8 +55,8 @@ public class Panel {
 		Timestamp nascimento = new Timestamp(df.getTime());
 
 		Socio socio = new Socio(nome, endereco, email, nascimento);
-		boolean socioCadastrado = SocioDAO.inserirSocio(socio);
-		return socio.getNome();
+		SocioDAO.inserirSocio(socio);
+		return socio;
 	}
 
 	public static Locacao cadastraLocacao() throws SQLException, ParseException {
@@ -145,10 +145,11 @@ public class Panel {
 			socio.addDependente(new Dependente(Jdependente.getText(), dataDependente));
 			loc.setSocio(socio);
 			loc.setTitulo(Jdescricao.getText());
-			loc.setValor(Double.parseDouble(Jdescricao.getText()));
+			loc.setValor(Double.parseDouble(Jvalor.getText()));
 
 			loc.setDataDevolucao(dataDevolucao); 
 			loc.setDataRetirada(dataRetirada);
+			Menu.addSocio(socio);
 
 		} else {
 			JOptionPane.showInternalMessageDialog(cadastroLocacao,
@@ -157,18 +158,15 @@ public class Panel {
 			Panel.cadastraLocacao();
 		}
 
+		System.out.println(socio.getNome());
 		return loc;
 	}
 
 
-	public static Locacao pesqLocacao() {
-		Locacao loc = null;
-		JOptionPane.showInputDialog(null, "Informe o Valor da Locação");
+	public static Socio pesquisaSocio()  throws SQLException {
+		Socio socio = SocioDAO.getSocio(JOptionPane.showInputDialog("Nome do Sócio:"));
 		
-		loc = new Locacao();
-		return loc;
-		
-		
+		return socio;
 	}
 
 }

@@ -18,6 +18,8 @@ public class Socio extends Pessoa{
     }
 
 
+    
+
     public String getEndereco() {
         return endereco;
     }
@@ -33,6 +35,7 @@ public class Socio extends Pessoa{
 	}
 	
 	public void addDependente(Dependente d) {
+		System.out.println("Dependente " + d.getNome() + " adicionado");
 		dependentes.add(d);
 	}
 

@@ -19,7 +19,7 @@ public abstract class Pessoa{
         return s;
     }
 
-    public int getTotal(){
+    public static int getTotal(){
         return total;
     }
 
@@ -43,7 +43,7 @@ public abstract class Pessoa{
 
 
 	public static void setTotal() {
-		Pessoa.total = total++;
+		total++;
 	}
     
     
