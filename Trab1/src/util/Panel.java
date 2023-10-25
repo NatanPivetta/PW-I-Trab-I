@@ -18,6 +18,8 @@ public class Panel {
 	}
 
 	public static Socio cadastraSocio() throws SQLException {
+		Socio socio = null;
+		boolean dataValida;
 		String dataNasc = "";
 		JTextField Jnome = new JTextField(30);
 		Jnome.setPreferredSize(new Dimension(50, 20));
@@ -50,16 +52,24 @@ public class Panel {
 		String email = Jemail.getText();
 		String endereco = Jendereco.getText();
 		dataNasc += Jdia.getText() + "/" + Jmes.getText() + "/" + Jano.getText();
-
-		Date df = new Date(dataNasc);
-		Timestamp nascimento = new Timestamp(df.getTime());
-
-		Socio socio = new Socio(nome, endereco, email, nascimento);
-		SocioDAO.inserirSocio(socio);
+		
+		if(!ValidaData.validar(dataNasc)){
+			JOptionPane.showMessageDialog(cadastroSocio, "Data Inválida \n");
+		}else { 
+		
+			Date df = new Date(dataNasc);
+			Timestamp nascimento = new Timestamp(df.getTime());
+			
+			socio = new Socio(nome, endereco, email, nascimento);
+			SocioDAO.inserirSocio(socio);
+			
+		}
 		return socio;
+		
 	}
 
 	public static Locacao cadastraLocacao() throws SQLException, ParseException {
+		Locacao loc = null;
 		Date dataRetirada;
 		Date dataDevolucao;
 		Date dataDependente;
@@ -130,36 +140,44 @@ public class Panel {
 
 		String dataDep = JdiaDep.getText() + "/" + JmesDep.getText() + "/" + JanoDep.getText();
 		String dataRet = JdiaRet.getText() + "/" + JmesRet.getText() + "/" + JanoRet.getText();
-		System.out.println(dataRet);
+		
 		String dataDev = JdiaDev.getText() + "/" + JmesDev.getText() + "/" + JanoDev.getText();
-		System.out.println(dataDev);
-		dataDevolucao = new SimpleDateFormat(pattern).parse(dataDev);
-		dataRetirada = new SimpleDateFormat(pattern).parse(dataRet);
-		dataDependente = new SimpleDateFormat(pattern).parse(dataDep);
-
-		Locacao loc = new Locacao();
-
-		socio = SocioDAO.getSocio(Jsocio.getText());
-		if (socio != null) {
-
-			socio.addDependente(new Dependente(Jdependente.getText(), dataDependente));
-			loc.setSocio(socio);
-			loc.setTitulo(Jdescricao.getText());
-			loc.setValor(Double.parseDouble(Jvalor.getText()));
-
-			loc.setDataDevolucao(dataDevolucao); 
-			loc.setDataRetirada(dataRetirada);
-			Menu.addSocio(socio);
-
-		} else {
-			JOptionPane.showInternalMessageDialog(cadastroLocacao,
-			"Sócio não Encontrado na Base de Dados. Prossiga com o cadastro");
-			Panel.cadastraSocio();
-			Panel.cadastraLocacao();
+		
+		if(!ValidaData.validar(dataDep) || !ValidaData.validar(dataRet) || !ValidaData.validar(dataDev)) {
+			JOptionPane.showMessageDialog(cadastroLocacao, "Data Inválida \n");
+		}else {
+			
+			dataDevolucao = new SimpleDateFormat(pattern).parse(dataDev);
+			dataRetirada = new SimpleDateFormat(pattern).parse(dataRet);
+			dataDependente = new SimpleDateFormat(pattern).parse(dataDep);
+			
+			loc = new Locacao();
+			
+			socio = SocioDAO.getSocio(Jsocio.getText());
+			if (socio != null) {
+				
+				socio.addDependente(new Dependente(Jdependente.getText(), dataDependente));
+				loc.setSocio(socio);
+				loc.setTitulo(Jdescricao.getText());
+				loc.setValor(Double.parseDouble(Jvalor.getText()));
+				
+				loc.setDataDevolucao(dataDevolucao); 
+				loc.setDataRetirada(dataRetirada);
+				Menu.addSocio(socio);
+				
+			} else {
+				JOptionPane.showInternalMessageDialog(cadastroLocacao,
+						"Sócio não Encontrado na Base de Dados. Prossiga com o cadastro");
+				Panel.cadastraSocio();
+				Panel.cadastraLocacao();
+			}
+			
+			System.out.println(socio.getNome());
+			
 		}
-
-		System.out.println(socio.getNome());
+		
 		return loc;
+		
 	}
 
 

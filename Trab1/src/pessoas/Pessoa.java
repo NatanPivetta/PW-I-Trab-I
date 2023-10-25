@@ -15,6 +15,9 @@ public abstract class Pessoa{
     @Override
     public String toString(){
         String s = "";
+        
+        s += "Nome:" + this.getNome() + "\n"
+        + "Data de Nascimento: " + this.getDataNascimento().toString() + "\n";
 
         return s;
     }

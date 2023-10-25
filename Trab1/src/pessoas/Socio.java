@@ -44,6 +44,9 @@ public class Socio extends Pessoa{
 		String s = "";
 		
 		s += this.getNome() +"\n";
+		s += this.getDataNascimento().toString()+"\n";
+		s += this.getEndereco()+"\n";
+		s += this.getEmail()+"\n";
 		s += "Dependentes: \n";
 		for (Dependente dependente : dependentes) {
 			s += dependente.getNome();
